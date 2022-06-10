@@ -35,7 +35,7 @@ app.post('/create/orderId', (req, res) => {
 app.post("/api/payment/verify", (req, res) => {
     let body = req.body.response.razorpay_order_id + "|" + req.body.response.razorpay_payment_id;
     var crypto = require("crypto");
-    var expectedSignature = crypto.createHmac('sha256', 'GVOWRIZ3W3AuiPjdKSk4yvKq').update(body.toString()).digest('hex');
+    var expectedSignature = crypto.createHmac('sha256', process.env.KEY_SECRET).update(body.toString()).digest('hex');
     console.log("sig received ", req.body.response.razorpay_signature);
     console.log("sig generated ", expectedSignature);
     var response = {
